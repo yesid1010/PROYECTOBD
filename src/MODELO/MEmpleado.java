@@ -262,7 +262,8 @@ public class MEmpleado {
 
     public void login(String contrasena, String usuario) {
 
-        sSQL = "select * from empleados inner join rol on empleados.rol_id = rol.rol_id where usuario = " + "'" + usuario + "' and contrasena = " + "MD5(" + contrasena + ") and estado = 'Activo'";
+       // sSQL = "select * from empleados inner join rol on empleados.rol_id = rol.rol_id where usuario = " + "'" + usuario + "' and contrasena = " + "MD5(" + contrasena + ") and estado = 'Activo'";
+        sSQL = "select * from empleados inner join rol on empleados.rol_id = rol.rol_id where usuario = " + "'" + usuario + "' and contrasena = " +"'" + contrasena + "' and estado = 'Activo'";
         Conexion mysql = new Conexion();
         Connection cn = mysql.conectar();
         try {

@@ -230,5 +230,43 @@ public class MCliente {
         }
       return nombrec;
     }
+    
+    public DefaultTableModel mostrarproductos(int id) {
+
+        DefaultTableModel modelo;
+
+        String[] titulos
+                = {"Producto", "Cantidad"};
+
+        String[] registros = new String[2];
+        totalRegistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL = "SELECT productos.nombre as producto, SUM(detalles_factura.cantidad) as cantidad FROM\n" +
+"    facturas INNER join detalles_factura on facturas.facturas_id = detalles_factura.facturas_id INNER join\n" +
+"    cliente on facturas.cedula = cliente.cedula INNER JOIN\n" +
+"    productos on productos.productos_id = detalles_factura.productos_id where cliente.cedula ="+id+" GROUP by producto";
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+
+                registros[0] = rs.getString("producto");
+                registros[1] = rs.getString("cantidad");
+         
+                totalRegistros = totalRegistros + 1;
+                modelo.addRow(registros);
+            }
+            return modelo;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+        }
+
+    }
+
 
 }

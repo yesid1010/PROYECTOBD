@@ -5,77 +5,105 @@
  */
 package MODELO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author YESID SANCHEZ
  */
 public class Detalle_compra {
 
-    private int codigo;
-    private int cantidad;
-    private int subtotal;
-    private int precio_producto;
-    private MProducto producto;
-    private Factura_compra factura_compra;
+    private Conexion mysql = new Conexion();
+    private Connection cn = mysql.conectar();
+
+    private String sSQL = "";
+    int pedido_id;
+    int productos_id;
+    int catidad;
+    int precioP;
 
     public Detalle_compra() {
     }
 
-    public Detalle_compra(int codigo, int cantidad, int subtotal, int precio_producto, MProducto producto, Factura_compra factura_compra) {
-        this.codigo = codigo;
-        this.cantidad = cantidad;
-        this.subtotal = subtotal;
-        this.precio_producto = precio_producto;
-        this.producto = producto;
-        this.factura_compra = factura_compra;
+    public Detalle_compra(int pedido_id, int productos_id, int catidad, int precioP) {
+        this.pedido_id = pedido_id;
+        this.productos_id = productos_id;
+        this.catidad = catidad;
+        this.precioP = precioP;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public Conexion getMysql() {
+        return mysql;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setMysql(Conexion mysql) {
+        this.mysql = mysql;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public Connection getCn() {
+        return cn;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setCn(Connection cn) {
+        this.cn = cn;
     }
 
-    public int getSubtotal() {
-        return subtotal;
+    public String getsSQL() {
+        return sSQL;
     }
 
-    public void setSubtotal(int subtotal) {
-        this.subtotal = subtotal;
+    public void setsSQL(String sSQL) {
+        this.sSQL = sSQL;
     }
 
-    public int getPrecio_producto() {
-        return precio_producto;
+    public int getPedido_id() {
+        return pedido_id;
     }
 
-    public void setPrecio_producto(int precio_producto) {
-        this.precio_producto = precio_producto;
+    public void setPedido_id(int pedido_id) {
+        this.pedido_id = pedido_id;
     }
 
-    public MProducto getProducto() {
-        return producto;
+    public int getProductos_id() {
+        return productos_id;
     }
 
-    public void setProducto(MProducto producto) {
-        this.producto = producto;
+    public void setProductos_id(int productos_id) {
+        this.productos_id = productos_id;
     }
 
-    public Factura_compra getFactura_compra() {
-        return factura_compra;
+    public int getCatidad() {
+        return catidad;
     }
 
-    public void setFactura_compra(Factura_compra factura_compra) {
-        this.factura_compra = factura_compra;
+    public void setCatidad(int catidad) {
+        this.catidad = catidad;
     }
 
+    public int getPrecioP() {
+        return precioP;
+    }
+
+    public void setPrecioP(int precioP) {
+        this.precioP = precioP;
+    }
+    
+    public boolean insertar(Detalle_compra detalle) {
+
+        sSQL = "INSERT INTO detalles_pedidos (pedidos_id,productos_id,cantidad,precioP) VALUES (?,?,?,?)";
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            pst.setInt(1, detalle.getPedido_id());
+            pst.setInt(2, detalle.getProductos_id());
+            pst.setInt(3, detalle.getCatidad());
+            pst.setInt(4, detalle.getPrecioP());
+            pst.execute();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

@@ -175,4 +175,25 @@ public class MProveedor {
             return false;
         }
     }
+    
+    public String buscar(String nit) {
+        Conexion mysql = new Conexion();
+        String nombrec = null;
+        Connection cn = mysql.conectar();
+        sSQL = "select * from  proveedores where proveedores_id =" + nit;
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+                if (rs.absolute(1)) {
+                    nombrec = rs.getString("nombre");
+                } 
+            }
+
+        } catch (Exception e) {
+
+        }
+      return nombrec;
+    }
 }

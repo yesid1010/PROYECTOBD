@@ -12,6 +12,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -104,6 +106,80 @@ public class Factura_venta {
         
     }
     
+    public DefaultTableModel mostrar() {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"Codigo", "Fecha", "Cliente", "Empleado", "Total","CodigoCliente","CodigoEmpleado"};
+
+        String[] registros = new String[7];
+       // totalRegistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL = "SELECT * FROM facturas inner join cliente on facturas.cedula = cliente.cedula inner join empleados on facturas.empleados_cedula = empleados.cedula";
+
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+
+                registros[0] = rs.getString("facturas_id");
+                registros[1] = rs.getString("fecha");
+                registros[2]=rs.getString("facturas.cedula");
+                registros[3]= rs.getString("facturas.empleados_cedula");
+                registros[4] = rs.getString("total");
+                registros[5] = rs.getString("cliente.nombre")+" "+rs.getString("cliente.p_apellido");
+                registros[6] = rs.getString("empleados.nombre")+" "+rs.getString("empleados.p_apellido");
+                
+                //totalRegistros = totalRegistros + 1;
+                modelo.addRow(registros);
+            }
+            return modelo;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+        }
+
+    }
+    public boolean editar (Factura_venta venta){
+        
+        sSQL = "UPDATE facturas SET fecha = ?, cedula = ?,empleados_cedula = ?, total = ? WHERE facturas_id = ?";
+        
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            
+            pst.setString(1, venta.getFecha());
+            pst.setInt(2, venta.getClinete_cedula());
+            pst.setInt(3, venta.getEmpleado_cedula());
+            pst.setInt(4, venta.getTotal());
+            pst.setInt(5, venta.getFactura_id());
+            pst.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            
+            return false;
+        }
+        
+    }
+    public boolean eliminar (Factura_venta venta){
+        sSQL= "DELETE FROM facturas WHERE facturas_id = ?";
+        
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, venta.getFactura_id());
+            pst.execute();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+
+    
+    
     public String ultimoGuardado() {
         String sSQL = "SELECT * FROM facturas";
         String factura="";
@@ -122,6 +198,14 @@ public class Factura_venta {
         } catch (Exception e) {
         }
         return factura;
+    }
+    
+    public static int cambio(int importe,int total){
+           int cambio=0;
+       
+            cambio= importe-total;
+
+           return cambio;
     }
     
 }

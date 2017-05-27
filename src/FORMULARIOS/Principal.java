@@ -46,7 +46,6 @@ public class Principal extends javax.swing.JFrame {
         cargo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtcedula = new javax.swing.JTextField();
-        labelfecha = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuherramientas = new javax.swing.JMenu();
         menuventa = new javax.swing.JMenuItem();
@@ -124,9 +123,6 @@ public class Principal extends javax.swing.JFrame {
 
         txtcedula.setText("jTextField1");
 
-        labelfecha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelfecha.setText("jLabel2");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -150,8 +146,7 @@ public class Principal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(labelfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -176,9 +171,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addGap(100, 100, 100)
-                .addComponent(labelfecha)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         menuherramientas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/toolsMenu.png"))); // NOI18N
@@ -197,6 +190,11 @@ public class Principal extends javax.swing.JFrame {
         menucompra.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         menucompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/compraMenu.png"))); // NOI18N
         menucompra.setText("Compra");
+        menucompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menucompraActionPerformed(evt);
+            }
+        });
         menuherramientas.add(menucompra);
 
         jMenuBar1.add(menuherramientas);
@@ -287,6 +285,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/reporteMenu.png"))); // NOI18N
         jMenuItem2.setText("Informe Compra");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         menuinformes.add(jMenuItem2);
 
         jMenuBar1.add(menuinformes);
@@ -312,6 +315,16 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/ayuda.png"))); // NOI18N
         jMenuItem6.setText("Ayuda");
+        jMenuItem6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem6MouseClicked(evt);
+            }
+        });
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         menusalir.add(jMenuItem6);
 
         jMenuBar1.add(menusalir);
@@ -396,6 +409,16 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        FrmMostrarVentas ventas = new FrmMostrarVentas();
+        deskPricipal.add(ventas);
+        ventas.setClosable(true);
+        ventas.setIconifiable(true);
+        try {
+            ventas.setMaximum(true);
+        } catch (Exception e) {
+        }
+        ventas.toFront();
+        ventas.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
@@ -446,6 +469,16 @@ public class Principal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         
+        FrmMostrarVentas ventas = new FrmMostrarVentas();
+        deskPricipal.add(ventas);
+        ventas.setClosable(true);
+        ventas.setIconifiable(true);
+        try {
+            ventas.setMaximum(true);
+        } catch (Exception e) {
+        }
+        ventas.toFront();
+        ventas.setVisible(true);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -503,6 +536,53 @@ public class Principal extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuItem6MouseClicked
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+           
+         JOptionPane.showMessageDialog(null, "ATAJOS DE TECLADO\n"
+                + "MENU\n"
+                + "F1 = abrir formulario Venta\n"
+                + "F2 = Compra\n"
+                + "Ctrl + C = clientes\n"
+                + "Ctrl + U =  usuarios\n"
+                + "Ctrl + C = proveedores\n"
+                + "Ctrl + R = Roles\n"
+                + "Alt + P = Productos\n"
+                + "Alt + T = Categorias\n"
+                + "Alt + V = Informe de Ventas\n"
+                + "Alt + C = Informe de Compras\n"
+                + "Ctrl + S = Cerrar Sesion\n"
+                + "Ctrl + A = Ayuda\n"        
+        );
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        
+       
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void menucompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menucompraActionPerformed
+        // TODO add your handling code here:
+        
+        FrmCompraDetalle form1 = new FrmCompraDetalle();
+        deskPricipal.add(form1);
+        form1.setClosable(true);
+        form1.setIconifiable(true);
+        try {
+            form1.setMaximum(true);
+        } catch (Exception e) {
+        }
+        form1.toFront();
+        form1.setVisible(true);
+    }//GEN-LAST:event_menucompraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -555,7 +635,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
-    public static javax.swing.JLabel labelfecha;
     public static javax.swing.JMenu menuPersonal;
     private javax.swing.JMenuItem menucliente;
     private javax.swing.JMenuItem menucompra;

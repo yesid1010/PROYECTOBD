@@ -31,6 +31,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         initComponents();
         inhabilitar();
         mostrar("");
+        botondetalles.setVisible(false);
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
 
@@ -66,7 +67,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(true);
 
         btnNuevo.setEnabled(false);
-        
+
         btnEditar.setEnabled(false);
         txtNombre_persona.setText("");
         txtDireccion.setText("");
@@ -128,17 +129,17 @@ public class Cliente extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         txtprimer = new javax.swing.JTextField();
         txtsegundo = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtbuscar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabla = jTabla = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false; //Disallow the editing of any cell
             }
         };
-        jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        txtbuscar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -148,6 +149,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         registro = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        botondetalles = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
@@ -170,7 +172,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtcedula.setBackground(new java.awt.Color(36, 33, 33));
         txtcedula.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtcedula.setForeground(new java.awt.Color(207, 207, 207));
-        txtcedula.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtcedula.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtcedula.setCaretColor(new java.awt.Color(255, 255, 255));
         txtcedula.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtcedula.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +189,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtEmail.setBackground(new java.awt.Color(36, 33, 33));
         txtEmail.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(207, 207, 207));
-        txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setCaretColor(new java.awt.Color(255, 255, 255));
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +206,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtTelefono.setBackground(new java.awt.Color(36, 33, 33));
         txtTelefono.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtTelefono.setForeground(new java.awt.Color(207, 207, 207));
-        txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtTelefono.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtTelefono.setCaretColor(new java.awt.Color(255, 255, 255));
         txtTelefono.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +224,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtDireccion.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtDireccion.setForeground(new java.awt.Color(207, 207, 207));
         txtDireccion.setText(" ");
-        txtDireccion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtDireccion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtDireccion.setCaretColor(new java.awt.Color(255, 255, 255));
         txtDireccion.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
@@ -243,7 +245,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtNombre_persona.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtNombre_persona.setForeground(new java.awt.Color(207, 207, 207));
         txtNombre_persona.setText(" ");
-        txtNombre_persona.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtNombre_persona.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtNombre_persona.setCaretColor(new java.awt.Color(255, 255, 255));
         txtNombre_persona.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtNombre_persona.addActionListener(new java.awt.event.ActionListener() {
@@ -303,7 +305,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtprimer.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtprimer.setForeground(new java.awt.Color(207, 207, 207));
         txtprimer.setText(" ");
-        txtprimer.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtprimer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtprimer.setCaretColor(new java.awt.Color(255, 255, 255));
         txtprimer.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtprimer.addActionListener(new java.awt.event.ActionListener() {
@@ -321,7 +323,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtsegundo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtsegundo.setForeground(new java.awt.Color(207, 207, 207));
         txtsegundo.setText(" ");
-        txtsegundo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtsegundo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtsegundo.setCaretColor(new java.awt.Color(255, 255, 255));
         txtsegundo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtsegundo.addActionListener(new java.awt.event.ActionListener() {
@@ -383,23 +385,23 @@ public class Cliente extends javax.swing.JInternalFrame {
                     .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre_persona, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre_persona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(txtsegundo, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtsegundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDireccion)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefono)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -414,30 +416,6 @@ public class Cliente extends javax.swing.JInternalFrame {
                     .addComponent(btnEditar))
                 .addGap(44, 44, 44))
         );
-
-        jTabla.setAutoCreateRowSorter(true);
-        jTabla.setBackground(new java.awt.Color(0, 0, 0));
-        jTabla.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
-        jTabla.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTabla.setForeground(new java.awt.Color(255, 255, 255));
-        jTabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTabla.setRowHeight(20);
-        jTabla.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTablaMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTabla);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -465,35 +443,64 @@ public class Cliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jTabla.setAutoCreateRowSorter(true);
+        jTabla.setBackground(new java.awt.Color(0, 0, 0));
+        jTabla.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        jTabla.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTabla.setForeground(new java.awt.Color(255, 255, 255));
+        jTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTabla.setRowHeight(20);
+        jTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTabla);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel8)
-                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(27, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton1))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel8)))
+                            .addComponent(jLabel8)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
 
@@ -564,6 +571,14 @@ public class Cliente extends javax.swing.JInternalFrame {
             }
         });
 
+        botondetalles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/DescProd.png"))); // NOI18N
+        botondetalles.setText("Ver Detalles");
+        botondetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botondetallesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -576,15 +591,16 @@ public class Cliente extends javax.swing.JInternalFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
+                                .addGap(18, 18, 18)
+                                .addComponent(botondetalles)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
                                 .addComponent(registro)
-                                .addGap(13, 13, 13)))))
+                                .addGap(15, 15, 15)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -599,18 +615,14 @@ public class Cliente extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(registro)
-                                    .addComponent(jLabel11)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(23, 23, 23))))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(botondetalles)
+                                .addComponent(jLabel11)
+                                .addComponent(registro)))
+                        .addGap(56, 56, 56))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -652,7 +664,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombre_personaKeyTyped
 
     private void jTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaMouseClicked
-
+        botondetalles.setVisible(true);
         habilitar();
         btnGuardar.setEnabled(false);
         btnEditar.setEnabled(true);
@@ -666,8 +678,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtDireccion.setText(jTabla.getValueAt(fila, 4).toString());
         txtTelefono.setText(jTabla.getValueAt(fila, 5).toString());
         txtEmail.setText(jTabla.getValueAt(fila, 6).toString());
-        
-        
+
         txtcedula.setEditable(false);
     }//GEN-LAST:event_jTablaMouseClicked
 
@@ -680,7 +691,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     public void inhabilitar() {
 
         txtcedula.setEnabled(false);
-   
+
         txtNombre_persona.setEnabled(false);
         txtTelefono.setEnabled(false);
         txtDireccion.setEnabled(false);
@@ -692,7 +703,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(false);
 
         btnNuevo.setEnabled(true);
- 
+
         txtNombre_persona.setText("");
         txtDireccion.setText("");
         txtTelefono.setText("");
@@ -753,7 +764,7 @@ public class Cliente extends javax.swing.JInternalFrame {
             txtNombre_persona.requestFocus();
             return;
         }
-        
+
         if (txtprimer.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar el Apellido");
             txtNombre_persona.requestFocus();
@@ -761,7 +772,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         }
 
         MCliente cliente = new MCliente();
-        
+
         cliente.setCedula(txtcedula.getText());
         cliente.setNombre(txtNombre_persona.getText());
         cliente.setDireccion(txtDireccion.getText());
@@ -769,8 +780,6 @@ public class Cliente extends javax.swing.JInternalFrame {
         cliente.setEmail(txtEmail.getText());
         cliente.SetP_apellido(txtprimer.getText());
         cliente.SetS_apellido(txtsegundo.getText());
-
-        
 
         if (cliente.editarClientes(cliente)) {
             JOptionPane.showMessageDialog(null, "Cliente Modificado.");
@@ -894,8 +903,19 @@ public class Cliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsegundoKeyTyped
 
+    private void botondetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botondetallesActionPerformed
+        // TODO add your handling code here:
+        int i = jTabla.getSelectedRow();
+        productosventas productos = new productosventas();
+        productos.setVisible(true);
+        productosventas.labelid.setText(jTabla.getValueAt(i, 0).toString());
+        botondetalles.setVisible(false);
+
+    }//GEN-LAST:event_botondetallesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton botondetalles;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;

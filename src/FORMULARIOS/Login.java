@@ -172,7 +172,7 @@ public class Login extends javax.swing.JFrame {
            if(MEmpleado.sw){
                dispose();
                Factura_venta factura = new Factura_venta();
-               Principal.labelfecha.setText(factura.getFecha());
+               
            }
 
     }//GEN-LAST:event_ingresarActionPerformed

@@ -5,6 +5,7 @@
  */
 package MODELO;
 
+import FORMULARIOS.FrmCompraDetalle;
 import FORMULARIOS.FrmVentaDetalle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -278,6 +279,30 @@ public class MProducto {
                     FrmVentaDetalle.txtPrecio_producto.setText(rs.getString("precio_venta"));
                     FrmVentaDetalle.txtexistencia.setText(rs.getString("existencia"));
                     FrmVentaDetalle.txtcategoria.setText(rs.getString("categoria_id"));
+                } 
+            }
+
+        } catch (Exception e) {
+
+        }
+      return nombrec;
+    }
+    
+    public String buscar2(String codigo) {
+        Conexion mysql = new Conexion();
+        String nombrec = null;
+        Connection cn = mysql.conectar();
+        String sSQL = "select * from  productos where productos_id =" + codigo;
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+                if (rs.absolute(1)) {
+                    FrmCompraDetalle.txtNombre_producto.setText( rs.getString("nombre"));
+                    FrmCompraDetalle.txtPrecio_producto.setText(rs.getString("precio_venta"));
+                    FrmCompraDetalle.txtexistencia.setText(rs.getString("existencia"));
+                    FrmCompraDetalle.txtcategoria.setText(rs.getString("categoria_id"));
                 } 
             }
 

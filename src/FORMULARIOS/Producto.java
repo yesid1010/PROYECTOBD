@@ -701,7 +701,7 @@ public class Producto extends javax.swing.JInternalFrame {
         
         producto.setCategoria(Integer.valueOf(producto.GuardarCodigo(categoria)));
         
-        JOptionPane.showMessageDialog(null, producto.getCategoria());
+        
         if (producto.insertarProducto(producto)) {
             JOptionPane.showMessageDialog(null, "Producto registrado.");
             mostrar("");
