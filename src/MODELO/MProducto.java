@@ -311,4 +311,42 @@ public class MProducto {
         }
       return nombrec;
     }
+    
+    public DefaultTableModel mostrarMinimo(int buscar) {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"codigo", "Nombre", "existencia", "Precio_venta", "Precio_compra", "Categoria"};
+
+        String[] registros = new String[7];
+        totalRegistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSql = " select * from productos inner join categoria on categoria.categoria_id = productos.categoria_id  "
+                + "where productos.existencia <= "+buscar ;
+               
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSql);
+
+            while (rs.next()) {
+
+                registros[0] = rs.getString("productos_id");
+                registros[1] = rs.getString("nombre");
+                registros[2] = rs.getString("existencia");
+                registros[3] = rs.getString("precio_venta");
+                registros[4] = rs.getString("precio_compra");
+                registros[5] = rs.getString("categoria.nombre");
+                totalRegistros = totalRegistros + 1;
+                modelo.addRow(registros);
+            }
+            return modelo;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+        }
+
+    }
 }

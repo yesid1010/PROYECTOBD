@@ -902,13 +902,13 @@ public class Cliente extends javax.swing.JInternalFrame {
     private void txtsegundoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsegundoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsegundoKeyTyped
-
+    public static int i=0;
     private void botondetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botondetallesActionPerformed
         // TODO add your handling code here:
-        int i = jTabla.getSelectedRow();
+        i = jTabla.getSelectedRow();
         productosventas productos = new productosventas();
         productos.setVisible(true);
-        productosventas.labelid.setText(jTabla.getValueAt(i, 0).toString());
+      //  productosventas.labelid.setText(jTabla.getValueAt(i, 0).toString());
         botondetalles.setVisible(false);
 
     }//GEN-LAST:event_botondetallesActionPerformed
@@ -942,7 +942,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTabla;
+    public static javax.swing.JTable jTabla;
     private javax.swing.JLabel registro;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmail;

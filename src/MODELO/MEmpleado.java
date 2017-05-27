@@ -280,7 +280,7 @@ public class MEmpleado {
                 Principal.txtcedula.setText(rs.getString("cedula"));
                 if (!Principal.cargo.getText().equals("Administrador")) {
                     Principal.menuherramientas.setEnabled(false);
-                    Principal.menuinformes.setEnabled(false);
+                    Principal.menustock.setEnabled(false);
                     Principal.menuproductos.setEnabled(false);
                     Principal.jButton3.setEnabled(false);
                     Principal.menuPersonal.setEnabled(false);

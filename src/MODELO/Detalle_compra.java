@@ -7,6 +7,10 @@ package MODELO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -105,5 +109,61 @@ public class Detalle_compra {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    public boolean eliminar (Detalle_compra compra){
+        sSQL= "DELETE FROM detalles_pedidos WHERE pedidos_id = ? and productos_id = ?";
+        
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, compra.getPedido_id());
+            pst.setInt(2, compra.getProductos_id());
+            pst.execute();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    public DefaultTableModel mostrar(String id) {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"Producto", "Precio", "Cantidad", "Total","codigoP","codigoV"};
+
+        String[] registros = new String[6];
+        // totalRegistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL = "select pedidos.pedidos_id as pedido ,detalles_pedidos.productos_id as codigop,productos.nombre as producto, productos.precio_venta as precio,\n"
+                + "     detalles_pedidos.cantidad, (productos.precio_venta*detalles_pedidos.cantidad) as total\n"
+                + "     FROM pedidos INNER join detalles_pedidos on \n"
+                + "     pedidos.pedidos_id = detalles_pedidos.pedidos_id\n"
+                + "     INNER join productos on detalles_pedidos.productos_id = productos.productos_id \n"
+                + "     where detalles_pedidos.pedidos_id =" + id;
+        
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+
+                registros[0] = rs.getString("producto");
+                registros[1] = rs.getString("precio");
+                registros[2] = rs.getString("detalles_pedidos.cantidad");
+                registros[3] = rs.getString("total");
+                registros[4] = rs.getString("codigop");
+                registros[5] = rs.getString("pedido");
+                //totalRegistros = totalRegistros + 1;
+                modelo.addRow(registros);
+            }
+            return modelo;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+        }
+
     }
 }

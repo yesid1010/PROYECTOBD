@@ -58,9 +58,10 @@ public class Principal extends javax.swing.JFrame {
         menuproductos = new javax.swing.JMenu();
         menuproducto = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        menuinformes = new javax.swing.JMenu();
+        menustock = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         menusalir = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -269,8 +270,13 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuproductos);
 
-        menuinformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/reporteMenu.png"))); // NOI18N
-        menuinformes.setText("Informes");
+        menustock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/reporteMenu.png"))); // NOI18N
+        menustock.setText("Informes");
+        menustock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menustockActionPerformed(evt);
+            }
+        });
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/DescProd.png"))); // NOI18N
@@ -280,7 +286,7 @@ public class Principal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        menuinformes.add(jMenuItem1);
+        menustock.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/reporteMenu.png"))); // NOI18N
@@ -290,9 +296,19 @@ public class Principal extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        menuinformes.add(jMenuItem2);
+        menustock.add(jMenuItem2);
 
-        jMenuBar1.add(menuinformes);
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/NombreProducto.png"))); // NOI18N
+        jMenuItem7.setText("Minimo Stock");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        menustock.add(jMenuItem7);
+
+        jMenuBar1.add(menustock);
 
         menusalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/desplegar1.png"))); // NOI18N
         menusalir.setText("Opciones");
@@ -559,13 +575,23 @@ public class Principal extends javax.swing.JFrame {
                 + "Ctrl + S = Cerrar Sesion\n"
                 + "Ctrl + A = Ayuda\n"        
         );
+         
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         
-       
-        
+       FrmMostrarCompras form1 = new FrmMostrarCompras();
+        deskPricipal.add(form1);
+        form1.setClosable(true);
+        form1.setIconifiable(true);
+        try {
+            form1.setMaximum(true);
+        } catch (Exception e) {
+        }
+        form1.toFront();
+        form1.setVisible(true);
+         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void menucompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menucompraActionPerformed
@@ -582,6 +608,35 @@ public class Principal extends javax.swing.JFrame {
         form1.toFront();
         form1.setVisible(true);
     }//GEN-LAST:event_menucompraActionPerformed
+    public static int cantidad = 0;
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Stock minimo de los productos"));
+        if (cantidad < 0) {
+
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor mayor");
+            return;
+        }else{
+         
+         MinimoStock stock = new MinimoStock();
+         stock.setVisible(true);
+        // MinimoStock.txtcantidad.setText(String.valueOf(cantidad));
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void menustockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menustockActionPerformed
+        // TODO add your handling code here:
+       // JOptionPane.showMessageDialog(null, "sisas");
+       /* int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Stock minimo de los productos"));
+        if (cantidad < 0) {
+
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor mayor");
+            return;
+        }else{
+            
+        }*/
+       
+    }//GEN-LAST:event_menustockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -634,16 +689,17 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     public static javax.swing.JMenu menuPersonal;
     private javax.swing.JMenuItem menucliente;
     private javax.swing.JMenuItem menucompra;
     public static javax.swing.JMenu menuherramientas;
-    public static javax.swing.JMenu menuinformes;
     private javax.swing.JMenuItem menuproducto;
     public static javax.swing.JMenu menuproductos;
     private javax.swing.JMenuItem menuproveedor;
     private javax.swing.JMenu menusalir;
+    public static javax.swing.JMenu menustock;
     private javax.swing.JMenuItem menuusuario;
     private javax.swing.JMenuItem menuventa;
     public static javax.swing.JTextField txtcedula;

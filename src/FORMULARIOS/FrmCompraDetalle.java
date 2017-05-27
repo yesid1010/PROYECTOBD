@@ -85,7 +85,6 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
         txtCantidadProducto.setEditable(false);
         txtCod_producto.setEditable(false);
 
-      
         txtNombre_producto.setEditable(false);
 
         txtproveedor.setEditable(false);
@@ -193,6 +192,14 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
         txtnit.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
         txtnit.setCaretColor(new java.awt.Color(255, 255, 255));
         txtnit.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtnit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtnitKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnitKeyTyped(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -495,6 +502,9 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
             }
         });
         txtCantidadProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCantidadProductoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadProductoKeyTyped(evt);
             }
@@ -700,14 +710,12 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         int precio = 0, existencia = 0, categoria = 0, cantidad = 0, total = 0, j = 0;
         String codigo = null, nombre = null;
-        String sql = "UPDATE productos SET existencia = ? Where productos_id = ?";
         boolean bandera = false;
         if (txtCantidadProducto.getText().equals("") || txtCod_producto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "No se admiten campos vacios.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-           // int stock = Integer.valueOf(txtexistencia.getText());
-            int cantidad2 =0;
-            
+            int cantidad2 = 0;
+
             for (j = 0; j < productos.size(); j++) {
 
                 String codigo2 = productos.get(j).getCodigo();
@@ -729,22 +737,11 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
                 cantidad2 = Integer.valueOf(productos.get(j).getCantidad());
                 cantidad = cantidad1 + cantidad2;
                 total = Integer.valueOf(cantidad * precio);
-                //txtexistencia.setText(String.valueOf(stock - cantidad1));
-                //int existencia2 = Integer.valueOf(txtexistencia.getText());
 
                 try {
 
-                    //PreparedStatement pst = cn.prepareStatement(sql);
-
                     MProducto producto = new MProducto(codigo, nombre, precio, existencia, cantidad, categoria, total);
-
                     productos.set(j, producto);
-
-                   // pst.setInt(1, Integer.valueOf(txtexistencia.getText()));
-                   // pst.setInt(2, Integer.valueOf(txtCod_producto.getText()));
-
-                   // pst.executeUpdate();
-
                     actualizartabla();
                 } catch (Exception e) {
                 }
@@ -757,19 +754,13 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
                 categoria = Integer.valueOf(txtcategoria.getText());
                 cantidad = Integer.valueOf(txtCantidadProducto.getText());
                 total = Integer.valueOf(cantidad * precio);
-               // txtexistencia.setText(String.valueOf(stock - cantidad));
-              //  int stock2 = Integer.valueOf(txtexistencia.getText());
+
 
                 try {
-                //    PreparedStatement pst = cn.prepareStatement(sql);
+
 
                     MProducto producto = new MProducto(codigo, nombre, precio, existencia, cantidad, categoria, total);
                     productos.add(producto);
-
-               //     pst.setInt(1, Integer.valueOf(txtexistencia.getText()));
-               //     pst.setInt(2, Integer.valueOf(txtCod_producto.getText()));
-
-              //      pst.executeUpdate();
 
                     actualizartabla();
                 } catch (Exception e) {
@@ -787,7 +778,7 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
 
 
     private void btnQuitarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarProductoActionPerformed
-        String sql = "UPDATE productos SET existencia = ? Where productos_id = ?";
+       
         int i, cantidad, stock2;
         i = this.jTabla.getSelectedRow();
 
@@ -801,13 +792,9 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
             stocknuevo = stock2 + cantidad;
             txtproducto2.setText(jTabla.getValueAt(i, 0).toString());
 
-            PreparedStatement pst = cn.prepareStatement(sql);
-            pst.setInt(1, stocknuevo);
-            pst.setNString(2, productos.get(i).getCodigo());
-
+           
             int valor = JOptionPane.showConfirmDialog(this, "¿Seguro que desea ejecutar esta accion?", "Advertencia", JOptionPane.YES_NO_OPTION);
             if (valor == JOptionPane.YES_OPTION) {
-                //pst.executeUpdate();
                 productos.remove(jTabla.getSelectedRow());
                 dtm.removeRow(jTabla.getSelectedRow());
             }
@@ -869,7 +856,16 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPrecio_productoActionPerformed
 
     private void txtCod_productoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCod_productoKeyTyped
+        char car = evt.getKeyChar();
 
+        if ((car < '0' || car > '9') && txtCod_producto.getText().contains(".")
+                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        }
 
     }//GEN-LAST:event_txtCod_productoKeyTyped
 
@@ -877,66 +873,70 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
         DefaultTableModel dtm = (DefaultTableModel) jTabla.getModel();
         if (jTabla.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "no hay productos en la lista ");
-        } 
-       else {
-              
-              Factura_compra compra = new Factura_compra();
-              compra.setFecha(compra.getFecha());
-              compra.setProveedor(Integer.parseInt(txtnit.getText()));
-              compra.setEmpleado_cedula(Integer.parseInt(Principal.txtcedula.getText()));
-              compra.setTotal(Integer.parseInt(txtSubTotal.getText()));
-              
-              if(compra.insertar(compra)){
-                  JOptionPane.showMessageDialog(null, "Compra Guardada");
-                  for (int i = 0; i < jTabla.getRowCount(); i++) {
+        } else {
 
-                            int producto = Integer.parseInt(jTabla.getValueAt(i, 0).toString());
-                            int cantidad = Integer.parseInt(jTabla.getValueAt(i, 4).toString());
-                            int precioP = Integer.parseInt(jTabla.getValueAt(i, 2).toString());
+            Factura_compra compra = new Factura_compra();
+            compra.setFecha(compra.getFecha());
+            compra.setProveedor(Integer.parseInt(txtnit.getText()));
+            compra.setEmpleado_cedula(Integer.parseInt(Principal.txtcedula.getText()));
+            compra.setTotal(Integer.parseInt(txtSubTotal.getText()));
 
-                            Detalle_compra detalle = new Detalle_compra();
-                            detalle.setProductos_id(producto);
-                            detalle.setCatidad(cantidad);
-                            detalle.setPrecioP(precioP);
-                            detalle.setPedido_id(Integer.parseInt(compra.ultimoGuardado()));
+            if (compra.insertar(compra)) {
+                JOptionPane.showMessageDialog(null, "Compra Guardada");
+                for (int i = 0; i < jTabla.getRowCount(); i++) {
 
-                            if (detalle.insertar(detalle)) {
-                                //JOptionPane.showMessageDialog(null, "detalle guardado correctamente");
-                                int existencia = Integer.parseInt( jTabla.getValueAt(i, 3).toString());
-                                int existenciaNueva = existencia + cantidad;
-                                
-                                String sql = "UPDATE productos SET existencia = ? Where productos_id = ?";
-                                try {
-                                    PreparedStatement pst = cn.prepareStatement(sql);
-                                    pst.setInt(1, existenciaNueva);
-                                    pst.setInt(2, producto);
-                                    pst.executeUpdate();
-                                    
-                                } catch (Exception e) {
-                                }
-                                
-                                
-                            } else {
-                                JOptionPane.showMessageDialog(null, "error al guardar el detalle");
-                            }
+                    int producto = Integer.parseInt(jTabla.getValueAt(i, 0).toString());
+                    int cantidad = Integer.parseInt(jTabla.getValueAt(i, 4).toString());
+                    int precioP = Integer.parseInt(jTabla.getValueAt(i, 2).toString());
 
+                    Detalle_compra detalle = new Detalle_compra();
+                    detalle.setProductos_id(producto);
+                    detalle.setCatidad(cantidad);
+                    detalle.setPrecioP(precioP);
+                    detalle.setPedido_id(Integer.parseInt(compra.ultimoGuardado()));
+
+                    if (detalle.insertar(detalle)) {
+                        
+                        int existencia = Integer.parseInt(jTabla.getValueAt(i, 3).toString());
+                        int existenciaNueva = existencia + cantidad;
+
+                        String sql = "UPDATE productos SET existencia = ? Where productos_id = ?";
+                        try {
+                            PreparedStatement pst = cn.prepareStatement(sql);
+                            pst.setInt(1, existenciaNueva);
+                            pst.setInt(2, producto);
+                            pst.executeUpdate();
+
+                            desactivar();
+                            txtnit.setEditable(true);
+                            txtnit.setText("");
+                            txtproveedor.setText("");
+                            txtCod_producto.setText("");
+                            txtNombre_producto.setText("");
+                            txtPrecio_producto.setText("");
+                        } catch (Exception e) {
                         }
-                  
-                  
-              }else{
-                  JOptionPane.showMessageDialog(null, "Compra NO Guardada");
-              }
-              
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "error al guardar el detalle");
+                    }
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Compra NO Guardada");
+            }
+
         }
-          
+
     }//GEN-LAST:event_btnCalcularActionPerformed
-    
-    /*select facturas.facturas_id as factura,productos.nombre as producto, productos.precio_venta as precio,
-     detalles_factura.cantidad, (productos.precio_venta*detalles_factura.cantidad) as total
-     FROM facturas INNER join detalles_factura on 
-     facturas.facturas_id = detalles_factura.facturas_id
-     INNER join productos on detalles_factura.productos_id = productos.productos_id 
-     where detalles_factura.facturas_id = 2*/
+
+    /*select pedidos.pedidos_id as pedido ,productos.nombre as producto, productos.precio_venta as precio,
+     detalles_pedidos.cantidad, (productos.precio_venta*detalles_pedidos.cantidad) as total
+     FROM pedidos INNER join detalles_pedidos on 
+     pedidos.pedidos_id = detalles_pedidos.pedidos_id
+     INNER join productos on detalles_pedidos.productos_id= productos.productos_id 
+     where detalles_pedidos.pedidos_id = 4*/
 
     /*SELECT cliente.nombre as cliente,productos.nombre as producto, detalles_factura.cantidad FROM
      facturas INNER join detalles_factura on facturas.facturas_id = detalles_factura.facturas_id INNER join
@@ -965,7 +965,16 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void txtCantidadProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProductoKeyTyped
+       char car = evt.getKeyChar();
 
+        if ((car < '0' || car > '9') && txtCantidadProducto.getText().contains(".")
+                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        }
 
     }//GEN-LAST:event_txtCantidadProductoKeyTyped
 
@@ -1018,7 +1027,7 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         // TODO add your handling code here:
-        
+
         desactivar();
         txtnit.setEditable(true);
         txtnit.setText("");
@@ -1028,6 +1037,30 @@ public class FrmCompraDetalle extends javax.swing.JInternalFrame {
         txtPrecio_producto.setText("");
 
     }//GEN-LAST:event_btncancelarActionPerformed
+
+    private void txtnitKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnitKeyReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtnitKeyReleased
+
+    private void txtCantidadProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProductoKeyReleased
+        // TODO add your handling code here:
+    
+    }//GEN-LAST:event_txtCantidadProductoKeyReleased
+
+    private void txtnitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnitKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+
+        if ((car < '0' || car > '9') && txtnit.getText().contains(".")
+                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        }
+    }//GEN-LAST:event_txtnitKeyTyped
 
     public void cancelar() {
         if (jTabla.getRowCount() != 0) {

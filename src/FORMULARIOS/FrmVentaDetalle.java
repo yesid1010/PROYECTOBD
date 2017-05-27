@@ -57,7 +57,6 @@ public class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
                 JLabel l = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-                //l.setBorder(new LineBorder(Color.black, 1));
                 l.setBackground(new java.awt.Color(36, 33, 33));
                 l.setForeground(new java.awt.Color(25, 118, 210));
                 l.setFont(new java.awt.Font("Arial", 1, 12));
@@ -193,6 +192,14 @@ public class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtcedula.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
         txtcedula.setCaretColor(new java.awt.Color(255, 255, 255));
         txtcedula.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtcedulaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcedulaKeyTyped(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -496,6 +503,9 @@ public class FrmVentaDetalle extends javax.swing.JInternalFrame {
             }
         });
         txtCantidadProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCantidadProductoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadProductoKeyTyped(evt);
             }
@@ -910,7 +920,16 @@ public class FrmVentaDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPrecio_productoActionPerformed
 
     private void txtCod_productoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCod_productoKeyTyped
+          char car = evt.getKeyChar();
 
+        if ((car < '0' || car > '9') && txtCod_producto.getText().contains(".")
+                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        }
 
     }//GEN-LAST:event_txtCod_productoKeyTyped
 
@@ -1015,7 +1034,16 @@ public class FrmVentaDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void txtCantidadProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProductoKeyTyped
+      char car = evt.getKeyChar();
 
+        if ((car < '0' || car > '9') && txtCantidadProducto.getText().contains(".")
+                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        }
 
     }//GEN-LAST:event_txtCantidadProductoKeyTyped
 
@@ -1090,7 +1118,16 @@ public class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
     private void txtImporteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImporteKeyReleased
         // TODO add your handling code here:
+        char car = evt.getKeyChar();
 
+        if ((car < '0' || car > '9') && txtImporte.getText().contains(".")
+                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        }
     }//GEN-LAST:event_txtImporteKeyReleased
 
     private void txtImporteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImporteKeyPressed
@@ -1104,6 +1141,31 @@ public class FrmVentaDetalle extends javax.swing.JInternalFrame {
         
 
     }//GEN-LAST:event_btncancelarActionPerformed
+
+    private void txtCantidadProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProductoKeyReleased
+        // TODO add your handling code here:
+        
+         
+    }//GEN-LAST:event_txtCantidadProductoKeyReleased
+
+    private void txtcedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedulaKeyReleased
+        // TODO add your handling code here:
+         
+    }//GEN-LAST:event_txtcedulaKeyReleased
+
+    private void txtcedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedulaKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+
+        if ((car < '0' || car > '9') && txtcedula.getText().contains(".")
+                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
+        }
+    }//GEN-LAST:event_txtcedulaKeyTyped
     
     public void cancelar(){
         if (jTabla.getRowCount() != 0) {

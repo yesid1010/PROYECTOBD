@@ -12,6 +12,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -131,6 +133,47 @@ public class Factura_compra {
         
     }
     
+    
+    public DefaultTableModel mostrar() {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"Codigo", "Fecha", "Proveedor", "Empleado", "Total","CodigoCliente","CodigoEmpleado"};
+
+        String[] registros = new String[7];
+       // totalRegistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL = "SELECT * FROM pedidos inner join proveedores on pedidos.proveedores_id = proveedores.proveedores_id inner join empleados on pedidos.empleados_cedula = empleados.cedula";
+
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+
+                registros[0] = rs.getString("pedidos_id");
+                registros[1] = rs.getString("fecha");
+                registros[2]=rs.getString("pedidos.proveedores_id");
+                registros[3]= rs.getString("pedidos.empleados_cedula");
+                registros[4] = rs.getString("total");
+                registros[5] = rs.getString("proveedores.nombre");
+                registros[6] = rs.getString("empleados.nombre")+" "+rs.getString("empleados.p_apellido");
+                
+                //totalRegistros = totalRegistros + 1;
+                modelo.addRow(registros);
+            }
+            return modelo;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+        }
+
+    }
+    
+    
     public String ultimoGuardado() {
         String sSQL = "SELECT * FROM pedidos";
         String pedido="";
@@ -151,4 +194,36 @@ public class Factura_compra {
         return pedido;
     }
     
+     public boolean eliminar (Factura_compra compra){
+        sSQL= "DELETE FROM pedidos WHERE pedidos_id = ?";
+        
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, compra.getPedido_id());
+            pst.execute();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    public boolean editar (Factura_compra compra){
+        
+        sSQL = "UPDATE pedidos SET fecha = ?, proveedores_id = ?,empleados_cedula = ?, total = ? WHERE pedidos_id = ?";
+        
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            
+            pst.setString(1, compra.getFecha());
+            pst.setInt(2, compra.getProveedor());
+            pst.setInt(3, compra.getEmpleado_cedula());
+            pst.setInt(4, compra.getTotal());
+            pst.setInt(5, compra.getPedido_id());
+            pst.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            
+            return false;
+        }
+        
+    }
 }
