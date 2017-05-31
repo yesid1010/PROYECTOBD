@@ -6,6 +6,7 @@
 package FORMULARIOS;
 
 import MODELO.MCliente;
+import ORM.Cliente;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
@@ -16,21 +17,25 @@ import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import operaciones.Operaciones;
 
 /**
  *
  * @author EMERITA
  */
-public class Cliente extends javax.swing.JInternalFrame {
+public class FRMCliente extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Cliente
      */
-    public Cliente() {
+    Operaciones op = new Operaciones();
+
+    public FRMCliente() {
 
         initComponents();
         inhabilitar();
-        mostrar("");
+        mostrar();
+        filtro("");
         botondetalles.setVisible(false);
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
@@ -79,13 +84,21 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtcedula.setEditable(true);
 
     }
-
-    public void mostrar(String buscar) {
+    
+    public void filtro(String buscar){
+       DefaultTableModel modelo;
+       MCliente cliente =  new MCliente();
+       modelo = cliente.mostrar(buscar);
+       jTabla.setModel(modelo);
+       registro.setText(String.valueOf(cliente.totalRegistros));
+       ocultar_columnas();
+    }
+    public void mostrar() {
         try {
             DefaultTableModel modelo;
-            MCliente funcion = new MCliente();
-            modelo = funcion.mostrar(buscar);
-            registro.setText(String.valueOf(funcion.totalRegistros));
+            
+            modelo = op.listaClientes();
+            
             jTabla.setModel(modelo);
             ocultar_columnas();
 
@@ -685,7 +698,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         habilitar();
         txtcedula.requestFocus();
-        mostrar("");
+        mostrar();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     public void inhabilitar() {
@@ -731,23 +744,23 @@ public class Cliente extends javax.swing.JInternalFrame {
             return;
         }
 
-        MCliente cliente = new MCliente();
+        Cliente cliente = new Cliente();
 
+        cliente.setCedula(Integer.parseInt(txtcedula.getText()));
         cliente.setNombre(txtNombre_persona.getText());
         cliente.setDireccion(txtDireccion.getText());
         cliente.setTelefono(txtTelefono.getText());
         cliente.setEmail(txtEmail.getText());
-        cliente.setCedula(txtcedula.getText());
-        cliente.SetP_apellido(txtprimer.getText());
-        cliente.SetS_apellido(txtsegundo.getText());
+        cliente.setPApellido(txtprimer.getText());
+        cliente.setSApellido(txtsegundo.getText());
 
-        if (cliente.insertarCliente(cliente)) {
+        if (op.insertar(cliente)) {
             JOptionPane.showMessageDialog(null, "Cliente registrado.");
-            mostrar("");
+            mostrar();
             inhabilitar();
         } else {
             JOptionPane.showMessageDialog(null, "No se ingreso el Cliente.");
-            mostrar("");
+            mostrar();
 
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -771,23 +784,23 @@ public class Cliente extends javax.swing.JInternalFrame {
             return;
         }
 
-        MCliente cliente = new MCliente();
-
-        cliente.setCedula(txtcedula.getText());
+        //MCliente cliente = new MCliente();
+        Cliente cliente = new Cliente();
+        cliente.setCedula(Integer.parseInt(txtcedula.getText()));
         cliente.setNombre(txtNombre_persona.getText());
         cliente.setDireccion(txtDireccion.getText());
         cliente.setTelefono(txtTelefono.getText());
         cliente.setEmail(txtEmail.getText());
-        cliente.SetP_apellido(txtprimer.getText());
-        cliente.SetS_apellido(txtsegundo.getText());
+        cliente.setPApellido(txtprimer.getText());
+        cliente.setSApellido(txtsegundo.getText());
 
-        if (cliente.editarClientes(cliente)) {
+        if (op.editar(cliente)) {
             JOptionPane.showMessageDialog(null, "Cliente Modificado.");
-            mostrar("");
+            mostrar();
             inhabilitar();
         } else {
             JOptionPane.showMessageDialog(null, "No se modifico el Cliente.");
-            mostrar("");
+            mostrar();
 
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -799,11 +812,13 @@ public class Cliente extends javax.swing.JInternalFrame {
 
             int valor = JOptionPane.showConfirmDialog(this, "¿Seguro que desea ejecutar esta accion?", "Advertencia", JOptionPane.YES_NO_OPTION);
             if (valor == 0) {
-                MCliente cliente = new MCliente();
-                cliente.setCedula(txtcedula.getText());
-                if (cliente.eliminarClientes(cliente)) {
+                Cliente cliente = new Cliente();
+                cliente.setCedula(Integer.valueOf(txtcedula.getText()));
+                cliente.setNombre(txtNombre_persona.getText());
+                cliente.setPApellido(txtprimer.getText());
+                if (op.eliminar(cliente)) {
                     JOptionPane.showMessageDialog(null, "cliente eliminado");
-                    mostrar("");
+                    mostrar();
                     inhabilitar();
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha podido eliminar el Cliente" + cliente.getNombre());
@@ -827,7 +842,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     private void txtbuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyPressed
         // TODO add your handling code here:
         MCliente cliente = new MCliente();
-        mostrar(txtbuscar.getText());
+        filtro(txtbuscar.getText());
 
     }//GEN-LAST:event_txtbuscarKeyPressed
 
@@ -883,7 +898,7 @@ public class Cliente extends javax.swing.JInternalFrame {
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         // TODO add your handling code here:
-        mostrar("");
+        mostrar();
         inhabilitar();
     }//GEN-LAST:event_jLabel14MouseClicked
 
@@ -902,13 +917,13 @@ public class Cliente extends javax.swing.JInternalFrame {
     private void txtsegundoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsegundoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsegundoKeyTyped
-    public static int i=0;
+    public static int i = 0;
     private void botondetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botondetallesActionPerformed
         // TODO add your handling code here:
         i = jTabla.getSelectedRow();
         productosventas productos = new productosventas();
         productos.setVisible(true);
-      //  productosventas.labelid.setText(jTabla.getValueAt(i, 0).toString());
+        //  productosventas.labelid.setText(jTabla.getValueAt(i, 0).toString());
         botondetalles.setVisible(false);
 
     }//GEN-LAST:event_botondetallesActionPerformed

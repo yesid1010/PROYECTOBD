@@ -62,6 +62,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         menusalir = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -308,6 +309,16 @@ public class Principal extends javax.swing.JFrame {
         });
         menustock.add(jMenuItem7);
 
+        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, 0));
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/LOGO.png"))); // NOI18N
+        jMenuItem8.setText("Producto Mas Vendido");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        menustock.add(jMenuItem8);
+
         jMenuBar1.add(menustock);
 
         menusalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/desplegar1.png"))); // NOI18N
@@ -393,7 +404,7 @@ public class Principal extends javax.swing.JFrame {
      }
     private void menuclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuclienteActionPerformed
         // TODO add your handling code here:
-        Cliente form = new Cliente();
+        FRMCliente form = new FRMCliente();
         deskPricipal.add(form);
         form.setClosable(true);
         form.setIconifiable(true);
@@ -439,7 +450,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         // TODO add your handling code here:
-        Cliente form1 = new Cliente();
+        FRMCliente form1 = new FRMCliente();
         deskPricipal.add(form1);
         form1.setClosable(true);
         form1.setIconifiable(true);
@@ -638,6 +649,10 @@ public class Principal extends javax.swing.JFrame {
        
     }//GEN-LAST:event_menustockActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -690,6 +705,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     public static javax.swing.JMenu menuPersonal;
     private javax.swing.JMenuItem menucliente;

@@ -109,7 +109,7 @@ public class productosventas extends javax.swing.JFrame {
     public  void mostrar(){
         DefaultTableModel modelo;
             MCliente funcion = new MCliente();
-            modelo = funcion.mostrarproductos( Integer.parseInt(Cliente.jTabla.getValueAt(Cliente.i, 0).toString()));
+            modelo = funcion.mostrarproductos( Integer.parseInt(FRMCliente.jTabla.getValueAt(FRMCliente.i, 0).toString()));
            
             jTable1.setModel(modelo);
     }

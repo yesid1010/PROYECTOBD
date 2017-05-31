@@ -7,6 +7,7 @@ package FORMULARIOS;
 
 import MODELO.MCliente;
 import MODELO.MProveedor;
+import ORM.Proveedores;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
@@ -17,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import operaciones.Operaciones;
 
 /**
  *
@@ -27,11 +29,15 @@ public class Proveedor extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cliente
      */
+    Operaciones op = new Operaciones();
+
     public Proveedor() {
 
         initComponents();
         inhabilitar();
-        mostrar("");
+        mostrar();
+        filtro("");
+        txtnit.setVisible(false);
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
 
@@ -56,7 +62,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
 
     public void habilitar() {
 
-        txtrut.setEnabled(true);
+//        txtrut.setEnabled(true);
         txtNombre_persona.setEnabled(true);
         txtTelefono.setEnabled(true);
         txtDireccion.setEnabled(true);
@@ -65,26 +71,32 @@ public class Proveedor extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(true);
         btnEditar.setEnabled(false);
         btnNuevo.setEnabled(false);
-     
+
         txtNombre_persona.setText("");
         txtDireccion.setText("");
         txtTelefono.setText("");
         txtEmail.setText("");
-        txtrut.setText("");
-        txtrut.setEditable(true);
+
 
     }
 
-    public void mostrar(String buscar) {
+    public void mostrar() {
         try {
             DefaultTableModel modelo;
-            MProveedor funcion = new MProveedor();
-            modelo = funcion.mostrar(buscar);
-            registro.setText(String.valueOf(funcion.totalRegistros));
+            modelo = op.listaProveedores();
             jTabla.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    
+     public void filtro(String buscar){
+       DefaultTableModel modelo;
+       MProveedor proveedor =  new MProveedor();
+       modelo = proveedor.mostrar(buscar);
+       jTabla.setModel(modelo);
+       registro.setText(String.valueOf(proveedor.totalRegistros));
+       ocultar_columnas();
     }
 
     public void ocultar_columnas() {
@@ -106,8 +118,6 @@ public class Proveedor extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        txtrut = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
@@ -118,6 +128,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        txtnit = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabla = jTabla = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -152,27 +163,6 @@ public class Proveedor extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(207, 207, 207));
         jLabel6.setText("Email :");
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(207, 207, 207));
-        jLabel7.setText("Nit : ");
-
-        txtrut.setBackground(new java.awt.Color(36, 33, 33));
-        txtrut.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        txtrut.setForeground(new java.awt.Color(207, 207, 207));
-        txtrut.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
-        txtrut.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtrut.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtrut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtrutActionPerformed(evt);
-            }
-        });
-        txtrut.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtrutKeyTyped(evt);
-            }
-        });
 
         txtEmail.setBackground(new java.awt.Color(36, 33, 33));
         txtEmail.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -281,6 +271,24 @@ public class Proveedor extends javax.swing.JInternalFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/users_basic_blue.png"))); // NOI18N
 
+        txtnit.setBackground(new java.awt.Color(36, 33, 33));
+        txtnit.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        txtnit.setForeground(new java.awt.Color(207, 207, 207));
+        txtnit.setText(" ");
+        txtnit.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
+        txtnit.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtnit.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnitActionPerformed(evt);
+            }
+        });
+        txtnit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnitKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -291,18 +299,15 @@ public class Proveedor extends javax.swing.JInternalFrame {
                         .addGap(20, 20, 20)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel7)
                             .addComponent(jLabel3)
                             .addComponent(jLabel6)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                .addComponent(txtNombre_persona, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(txtNombre_persona, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnNuevo)
@@ -312,18 +317,18 @@ public class Proveedor extends javax.swing.JInternalFrame {
                         .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(14, 14, 14))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(jLabel1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel1))
+                    .addComponent(txtnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
+                .addComponent(txtnit, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre_persona, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -341,7 +346,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6))
                 .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
@@ -561,10 +566,6 @@ public class Proveedor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtrutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrutActionPerformed
-
-    }//GEN-LAST:event_txtrutActionPerformed
-
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         txtEmail.transferFocus();
     }//GEN-LAST:event_txtEmailActionPerformed
@@ -594,23 +595,22 @@ public class Proveedor extends javax.swing.JInternalFrame {
 
         int fila = jTabla.rowAtPoint(evt.getPoint());
         txtNombre_persona.setText(jTabla.getValueAt(fila, 1).toString());
-        txtDireccion.setText(jTabla.getValueAt(fila, 2).toString());
-        txtTelefono.setText(jTabla.getValueAt(fila, 3).toString());
+        txtDireccion.setText(jTabla.getValueAt(fila, 3).toString());
+        txtTelefono.setText(jTabla.getValueAt(fila, 2).toString());
         txtEmail.setText(jTabla.getValueAt(fila, 4).toString());
-        txtrut.setText(jTabla.getValueAt(fila, 0).toString());
-        txtrut.setEditable(false);
+        txtnit.setText(jTabla.getValueAt(fila, 0).toString());
+        //       txtrut.setEditable(false);
     }//GEN-LAST:event_jTablaMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         habilitar();
-        txtrut.requestFocus();
-        mostrar("");
+        //txtrut.requestFocus();
+        mostrar();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     public void inhabilitar() {
 
-        txtrut.setEnabled(false);
-        
+        //txtrut.setEnabled(false);
         txtNombre_persona.setEnabled(false);
         txtTelefono.setEnabled(false);
         txtDireccion.setEnabled(false);
@@ -620,21 +620,21 @@ public class Proveedor extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(false);
 
         btnNuevo.setEnabled(true);
-       
+
         txtNombre_persona.setText("");
         txtDireccion.setText("");
         txtTelefono.setText("");
         txtEmail.setText("");
-        txtrut.setText("");
+        //  txtrut.setText("");
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        if (txtrut.getText().length() == 0) {
+        /*   if (txtrut.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un Rut.");
             txtrut.requestFocus();
             return;
-        }
+        }*/
         if (txtNombre_persona.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un Nombre.");
             txtNombre_persona.requestFocus();
@@ -655,34 +655,33 @@ public class Proveedor extends javax.swing.JInternalFrame {
             txtEmail.requestFocus();
             return;
         }
-        
 
-        MProveedor proveedor = new MProveedor();
-
+        // MProveedor proveedor = new MProveedor();
+        Proveedores proveedor = new Proveedores();
         proveedor.setNombre(txtNombre_persona.getText());
         proveedor.setDireccion(txtDireccion.getText());
         proveedor.setTelefono(txtTelefono.getText());
         proveedor.setEmail(txtEmail.getText());
-        proveedor.setNit(txtrut.getText());
+        //   proveedor.setNit(txtrut.getText());
 
-        if (proveedor.insertarProveedor(proveedor)) {
+        if (op.insertar(proveedor)) {
             JOptionPane.showMessageDialog(null, "Proveedor registrado.");
-            mostrar("");
+            mostrar();
             inhabilitar();
         } else {
             JOptionPane.showMessageDialog(null, "No se ingreso el Proveedor.");
-            mostrar("");
+            mostrar();
 
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
-        if (txtrut.getText().length() == 0) {
+        /* if (txtrut.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un Rut");
             txtrut.requestFocus();
             return;
-        }
+        }*/
         if (txtNombre_persona.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un Nombre");
             txtNombre_persona.requestFocus();
@@ -704,22 +703,21 @@ public class Proveedor extends javax.swing.JInternalFrame {
             return;
         }
 
-        MProveedor proveedor = new MProveedor();
-
+        // MProveedor proveedor = new MProveedor();
+        Proveedores proveedor = new Proveedores();
         proveedor.setNombre(txtNombre_persona.getText());
         proveedor.setDireccion(txtDireccion.getText());
         proveedor.setTelefono(txtTelefono.getText());
         proveedor.setEmail(txtEmail.getText());
-
-        proveedor.setNit(txtrut.getText());
-
-        if (proveedor.editarProveedor(proveedor)) {
+        proveedor.setProveedoresId(Integer.parseInt(txtnit.getText()));
+        //  proveedor.setNit(txtrut.getText());
+        if (op.editar(proveedor)) {
             JOptionPane.showMessageDialog(null, "Proveedor Modificado.");
-            mostrar("");
+            mostrar();
             inhabilitar();
         } else {
             JOptionPane.showMessageDialog(null, "No se modifico el Proveedor.");
-            mostrar("");
+            mostrar();
 
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -731,11 +729,18 @@ public class Proveedor extends javax.swing.JInternalFrame {
 
             int valor = JOptionPane.showConfirmDialog(this, "¿Seguro que desea ejecutar esta accion?", "Advertencia", JOptionPane.YES_NO_OPTION);
             if (valor == 0) {
-                MProveedor proveedor = new MProveedor();
-                proveedor.setNit(txtrut.getText());
+                 MProveedor proveedor = new MProveedor();
+                  proveedor.setNit(txtnit.getText());
+               // Proveedores proveedor = new Proveedores();
+               // proveedor.setNombre(txtNombre_persona.getText());
+                //proveedor.setDireccion(txtDireccion.getText());
+                //proveedor.setTelefono(txtTelefono.getText());
+                //proveedor.setEmail(txtEmail.getText());
+               // proveedor.setProveedoresId(Integer.parseInt(txtnit.getText()));
+                
                 if (proveedor.eliminarProveedor(proveedor)) {
                     JOptionPane.showMessageDialog(null, "Proveedor eliminado");
-                    mostrar("");
+                    mostrar();
                     inhabilitar();
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ha podido eliminar el Proveedor" + proveedor.getNombre());
@@ -759,23 +764,9 @@ public class Proveedor extends javax.swing.JInternalFrame {
     private void txtbuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyPressed
         // TODO add your handling code here:
         MProveedor proveedor = new MProveedor();
-        mostrar(txtbuscar.getText());
+         filtro(txtbuscar.getText());
 
     }//GEN-LAST:event_txtbuscarKeyPressed
-
-    private void txtrutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtrutKeyTyped
-        // TODO add your handling code here:
-        char car = evt.getKeyChar();
-
-        if ((car < '0' || car > '9') && txtrut.getText().contains(".")
-                && (car != (char) KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
-        } else if ((car < '0' || car > '9') && (car != '.') && (car != (char) KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "solo se admiten numeros");
-        }
-    }//GEN-LAST:event_txtrutKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         // TODO add your handling code here:
@@ -815,9 +806,17 @@ public class Proveedor extends javax.swing.JInternalFrame {
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         // TODO add your handling code here:
-        mostrar("");
+        mostrar();
         inhabilitar();
     }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void txtnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnitActionPerformed
+
+    private void txtnitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnitKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnitKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -836,7 +835,6 @@ public class Proveedor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -852,7 +850,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre_persona;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtbuscar;
-    private javax.swing.JTextField txtrut;
+    private javax.swing.JTextField txtnit;
     // End of variables declaration//GEN-END:variables
 
 }

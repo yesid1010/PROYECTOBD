@@ -6,6 +6,7 @@
 package FORMULARIOS;
 
 import MODELO.MCategoria;
+import ORM.Categoria;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,23 +15,26 @@ import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import operaciones.Operaciones;
 
 /**
  *
  * @author EMERITA
  */
 public class Categorias extends javax.swing.JFrame {
-  
+
     /**
      * Creates new form Categorias
      */
+    Operaciones op = new Operaciones();
+
     public Categorias() {
         initComponents();
         setLocationRelativeTo(this);
-        Mostrar("");
+        Mostrar();
         txtcodigo.setVisible(false);
         inhabilitar();
-        
+
         jTable1.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
 
             @Override
@@ -159,6 +163,7 @@ public class Categorias extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +182,6 @@ public class Categorias extends javax.swing.JFrame {
                             .addComponent(boton_eliminar)))
                     .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,9 +196,9 @@ public class Categorias extends javax.swing.JFrame {
                     .addComponent(boton_agregar)
                     .addComponent(boton_editar)
                     .addComponent(boton_eliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -234,12 +238,12 @@ public class Categorias extends javax.swing.JFrame {
         if (txtnombre.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar un nombre");
         } else {
-            MCategoria categoria = new MCategoria();
+            Categoria categoria = new Categoria();
             categoria.setNombre(txtnombre.getText());
 
-            if (categoria.insertarCategoria(categoria)) {
+            if (op.insertar(categoria)) {
                 JOptionPane.showMessageDialog(rootPane, "Categoria Agregada");
-                Mostrar("");
+                Mostrar();
                 inhabilitar();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Error al guardar Categoria");
@@ -250,45 +254,44 @@ public class Categorias extends javax.swing.JFrame {
     private void boton_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_editarActionPerformed
         // TODO add your handling code here:
 
-        if (txtnombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe ingresar un nombre");
+        Categoria categoria = new Categoria();
+        categoria.setNombre(txtnombre.getText());
+        categoria.setCategoriaId(Integer.parseInt(txtcodigo.getText()));
+
+        if (op.editar(categoria)) {
+            JOptionPane.showMessageDialog(null, "categoria editada");
+            Mostrar();
+            inhabilitar();
         } else {
-            MCategoria categoria = new MCategoria();
-            categoria.setNombre(txtnombre.getText());
-            categoria.setCodigo(Integer.valueOf( txtcodigo.getText()));
-            if (categoria.editarCategoria(categoria)) {
-                JOptionPane.showMessageDialog(rootPane, "Categoria Actualizada");
-                Mostrar("");
-                inhabilitar();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Error al Actualizar Categoria");
-            }
+            JOptionPane.showMessageDialog(null, "categoria NO editada");
         }
+
     }//GEN-LAST:event_boton_editarActionPerformed
 
     private void boton_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_eliminarActionPerformed
         // TODO add your handling code here:
-        
-          int fila  = jTable1.getSelectedRow();
-          
-          if (!txtnombre.getText().equals("")) {
+
+        int fila = jTable1.getSelectedRow();
+
+        if (!txtnombre.getText().equals("")) {
             int i = JOptionPane.showConfirmDialog(this, "¿Seguro que desea ejecutar esta accion?", "Advertencia", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                MCategoria categoria = new MCategoria();
-                categoria.setCodigo(Integer.valueOf(txtcodigo.getText()));
-                if (categoria.eliminarCategoria(categoria)) {
+                Categoria categoria = new Categoria();
+                categoria.setCategoriaId(Integer.valueOf(txtcodigo.getText()));
+                categoria.setNombre(txtnombre.getText());
+                if (op.eliminar(categoria)) {
                     JOptionPane.showMessageDialog(rootPane, "Categoria Eliminada");
-                    Mostrar("");
+                    Mostrar();
                     inhabilitar();
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Error al Eliminar Categoria");
                 }
-            }    
-          }else{
-              JOptionPane.showMessageDialog(null, "Selecione Fila a Eiliminar");
-          }
-            
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione Fila a Eiliminar");
+        }
+
 
     }//GEN-LAST:event_boton_eliminarActionPerformed
 
@@ -304,7 +307,7 @@ public class Categorias extends javax.swing.JFrame {
         boton_agregar.setEnabled(false);
         txtnombre.setEditable(true);
         txtnombre.setEnabled(true);
-        Mostrar("");
+        Mostrar();
 
 
     }//GEN-LAST:event_jTable1MouseClicked
@@ -312,7 +315,7 @@ public class Categorias extends javax.swing.JFrame {
     private void boton_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_nuevoActionPerformed
         // TODO add your handling code here:
         habilitar();
-        Mostrar("");
+        Mostrar();
         boton_editar.setEnabled(false);
         boton_eliminar.setEnabled(false);
     }//GEN-LAST:event_boton_nuevoActionPerformed
@@ -334,12 +337,12 @@ public class Categorias extends javax.swing.JFrame {
 
     }
 
-    public void Mostrar(String buscar) {
+    public void Mostrar() {
 
         try {
             DefaultTableModel modelo = null;
-            MCategoria categoria = new MCategoria();
-            modelo = categoria.mostrar(buscar);
+            Operaciones op = new Operaciones();
+            modelo = op.listaCategorias();
             jTable1.setModel(modelo);
         } catch (Exception e) {
         }
@@ -395,9 +398,4 @@ public class Categorias extends javax.swing.JFrame {
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 
-   
-
-   
-
- 
 }
